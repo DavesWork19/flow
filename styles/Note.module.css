@@ -1,0 +1,22 @@
+.main {
+    text-align: center;
+    min-height: 100vh;
+    background-color: lightgrey;
+  }
+  
+.noBox {
+    background-color: blue;
+}
+
+.box {
+    background-color: red;
+}
+
+.titleStyle {
+    background-color: lightgrey;
+    border-color: black;
+    text-align: center;
+}
+.titleStyleInput {
+    background-color: white;
+}
