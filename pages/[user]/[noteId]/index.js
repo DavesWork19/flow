@@ -44,13 +44,9 @@ const Files = () => {
     const [allFiles, setAllFiles] = useState([]);
     const [atLeastOneFileExists, setAtLeastOneFileExists] = useState(false);
 
-    const handleRemoval = (count) => {
-        let copyOfObject = { ...allFiles }
-        delete copyOfObject['propertyToRemove']
-
-        setShopCart( shopCart => ({
-            ...copyOfObject
-            }));
+    const handleRemoval = fileId => {
+        const newFiles = allFiles.filter(obj => obj.id !== fileId);
+        setAllFiles(oldFiles => [...newFiles]);
     }
     
     const addFile = (event) => {
@@ -66,7 +62,7 @@ const Files = () => {
         setStyle(styles.box);
         setAtLeastOneFileExists(true);
     }
-       
+
     return (
         <>
             <Head>
@@ -90,6 +86,7 @@ const Files = () => {
                     allFiles.map(files => 
                         <div key={files.id}>
                             {files.file}
+                            <button className='rounded-3' onClick={() => handleRemoval(files.id)}>Remove File</button>
                         </div>)}
                 </div>
     
