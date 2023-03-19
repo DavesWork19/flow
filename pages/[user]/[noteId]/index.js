@@ -29,11 +29,11 @@ const AddFile = () => {
 
 
     return (
-        <div className='mt-3 p-3'> 
+        <div className='mt-3 px-3'> 
             <input className={`${fileData.titleStyle}`} value={fileData.title} onChange={handleChange} onClick={handleInput} placeholder='Enter Title' spellCheck='false' />
             <button className='border border-primary' onClick={handleTitleChange} >Save</button>
             
-            <div className='border border-primary p-5'></div>
+            <div className='border border-primary rounded-4 p-5'></div>
         </div>
     );
 }
