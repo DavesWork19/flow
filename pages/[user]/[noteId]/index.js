@@ -2,7 +2,7 @@ import Head from 'next/head'
 import styles from '@/styles/Note.module.css'
 import { useState } from 'react';
 
-//Creates the new file
+//Creates the new Outer File
 const AddOuterFile = () => {
     const [fileData, setFileData] = useState({
         title: '',
@@ -38,7 +38,7 @@ const AddOuterFile = () => {
     );
 }
 
-//Manages all files and positions
+//Manages all Outer Files and positions
 const OuterContainer = () => {
     const [style, setStyle] = useState(styles.noBox);
     const [allOuterContainers, setAllOuterContainers] = useState([]);
