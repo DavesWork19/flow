@@ -3,7 +3,7 @@ import styles from '@/styles/Note.module.css'
 import { useState } from 'react';
 
 //Creates the new file
-const AddFile = () => {
+const AddOuterFile = () => {
     const [fileData, setFileData] = useState({
         title: '',
         titleStyle: ''
@@ -39,28 +39,27 @@ const AddFile = () => {
 }
 
 //Manages all files and positions
-const Files = () => {
+const OuterContainer = () => {
     const [style, setStyle] = useState(styles.noBox);
-    const [allFiles, setAllFiles] = useState([]);
-    const [atLeastOneFileExists, setAtLeastOneFileExists] = useState(false);
+    const [allOuterContainers, setAllOuterContainers] = useState([]);
+    const [atLeastOneOuterFileExists, setAtLeastOneOuterFileExists] = useState(false);
 
     const handleRemoval = fileId => {
-        const newFiles = allFiles.filter(obj => obj.id !== fileId);
-        setAllFiles(oldFiles => [...newFiles]);
+        const newFiles = allOuterContainers.filter(obj => obj.id !== fileId);
+        setAllOuterContainers(oldFiles => [...newFiles]);
     }
     
-    const addFile = (event) => {
+    const addOuterFile = (event) => {
         event.preventDefault();
-    
-        
-        const objectLength = Object.keys(allFiles).length;
+
+        const objectLength = Object.keys(allOuterContainers).length;
         const newObj = {
             id: objectLength,
-            file: <AddFile />
+            file: <AddOuterFile />
         };
-        setAllFiles(oldArray => [...oldArray, newObj]);
+        setAllOuterContainers(oldArray => [...oldArray, newObj]);
         setStyle(styles.box);
-        setAtLeastOneFileExists(true);
+        setAtLeastOneOuterFileExists(true);
     }
 
     return (
@@ -75,15 +74,15 @@ const Files = () => {
                 <h1>Note Title</h1>
             
                 <div className='row border border-primary p-3'>
-                    <button className={`col-3 ${style}`} onClick={addFile}>Add File</button>
+                    <button className={`col-3 ${style}`} onClick={addOuterFile}>Add Outer File</button>
                     <button className='col-3'>Add Class</button>
                     <button className='col-3'>Add Function</button>
                     <button className='col-3'>Add Connection</button>
                 </div>
                 
                 <div>
-                    {atLeastOneFileExists && 
-                    allFiles.map(files => 
+                    {atLeastOneOuterFileExists && 
+                    allOuterContainers.map(files => 
                         <div key={files.id}>
                             {files.file}
                             <button className='rounded-3' onClick={() => handleRemoval(files.id)}>Remove File</button>
@@ -95,4 +94,4 @@ const Files = () => {
     );
 }
 
-export default Files;
+export default OuterContainer;
