@@ -1,6 +1,9 @@
 import Head from 'next/head'
 import styles from '@/styles/Note.module.css'
 import { useState } from 'react';
+import Draggable from "react-draggable";
+import { useRef } from 'react';
+
 
 //Creates the new Outer File
 const AddOuterFile = () => {
@@ -37,7 +40,7 @@ const AddOuterFile = () => {
                 value={fileData.title}
                 onChange={handleTitleChange}
                 placeholder='Title'
-                SpellCheck='false'
+                spellCheck='false'
                 />
             </label>
             <button type='submit' className={fileData.saveButton}>Save</button>
@@ -53,6 +56,7 @@ const OuterContainer = () => {
     const [style, setStyle] = useState(styles.noBox);
     const [allOuterContainers, setAllOuterContainers] = useState([]);
     const [atLeastOneOuterFileExists, setAtLeastOneOuterFileExists] = useState(false);
+    const draggableNodeRef = useRef({});
 
     const handleRemoval = fileId => {
         const newFiles = allOuterContainers.filter(obj => obj.id !== fileId);
@@ -93,9 +97,13 @@ const OuterContainer = () => {
                     {atLeastOneOuterFileExists && 
                     allOuterContainers.map(files => 
                         <div key={files.id}>
-                            {files.file}
-                            <button className={`btn btn-outline-primary float-end ${styles.removeOuterFile}`} onClick={() => handleRemoval(files.id)}>Remove File</button>
-                        </div>)}
+                            <Draggable nodeRef={draggableNodeRef}>
+                                <div ref={draggableNodeRef}> 
+                                    {files.file}
+                                    <button className={`btn btn-outline-primary float-end p-0 m-0 ${styles.removeOuterFile}`} onClick={() => handleRemoval(files.id)}>Delete</button>
+                                </div>
+                            </Draggable>
+                       </div>)}
                 </div>
     
             </main>
