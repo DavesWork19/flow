@@ -6,13 +6,15 @@ import { useState } from 'react';
 const AddOuterFile = () => {
     const [fileData, setFileData] = useState({
         title: '',
-        titleStyle: ''
+        titleStyle: '',
+        saveButton: ''
     });
 
     const handleSubmit = (event) => {
         event.preventDefault();
         setFileData(() => ({ 
-            titleStyle: styles.titleStyle   
+            titleStyle: styles.titleStyle,
+            saveButton: styles.saveButton  
         }));
     }
 
@@ -25,7 +27,7 @@ const AddOuterFile = () => {
 
 
     return (
-        <div className='mt-3 px-3'> 
+        <div className='mt-3'> 
 
         <form onSubmit={handleSubmit}>
             <label>
@@ -38,7 +40,7 @@ const AddOuterFile = () => {
                 SpellCheck='false'
                 />
             </label>
-            <input type="submit" />
+            <button type='submit' className={fileData.saveButton}>Save</button>
         </form>
 
         <div className='border border-primary rounded-4 p-5'></div>
@@ -87,12 +89,12 @@ const OuterContainer = () => {
                     <button className='col-4'>Add Text File</button>
                 </div>
                 
-                <div>
+                <div className='px-5'>
                     {atLeastOneOuterFileExists && 
                     allOuterContainers.map(files => 
                         <div key={files.id}>
                             {files.file}
-                            <button className='rounded-3' onClick={() => handleRemoval(files.id)}>Remove File</button>
+                            <button className={`btn btn-outline-primary float-end ${styles.removeOuterFile}`} onClick={() => handleRemoval(files.id)}>Remove File</button>
                         </div>)}
                 </div>
     

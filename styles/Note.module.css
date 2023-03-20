@@ -14,9 +14,15 @@
 
 .titleStyle {
     background-color: lightgrey;
-    border-color: black;
     text-align: center;
+}
+.saveButton {
+    visibility: hidden;
 }
 .titleStyleInput {
     background-color: white;
+}
+
+.removeOuterFile {
+    font-size: xx-small;
 }
