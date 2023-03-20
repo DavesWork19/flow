@@ -9,31 +9,39 @@ const AddOuterFile = () => {
         titleStyle: ''
     });
 
-    const handleChange = (event) => {
+    const handleSubmit = (event) => {
+        event.preventDefault();
         setFileData(() => ({ 
+            titleStyle: styles.titleStyle   
+        }));
+    }
+
+    const handleTitleChange = event => {
+        event.preventDefault();
+        setFileData(() => ({
             title: event.target.value
-         }));
-    }
-
-    const handleInput = () => {
-        setFileData(() => ({ 
-            titleStyle: styles.titleStyleInput
-         }));
-    }
-
-    const handleTitleChange = () => {
-        setFileData(() => ({ 
-            titleStyle: styles.titleStyle
-         }));
+        }));
     }
 
 
     return (
         <div className='mt-3 px-3'> 
-            <input className={`${fileData.titleStyle}`} value={fileData.title} onChange={handleChange} onClick={handleInput} placeholder='Enter Title' spellCheck='false' />
-            <button className='border border-primary' onClick={handleTitleChange} >Save</button>
-            
-            <div className='border border-primary rounded-4 p-5'></div>
+
+        <form onSubmit={handleSubmit}>
+            <label>
+                <input 
+                className={fileData.titleStyle}
+                type="text" 
+                value={fileData.title}
+                onChange={handleTitleChange}
+                placeholder='Title'
+                SpellCheck='false'
+                />
+            </label>
+            <input type="submit" />
+        </form>
+
+        <div className='border border-primary rounded-4 p-5'></div>
         </div>
     );
 }
@@ -74,10 +82,9 @@ const OuterContainer = () => {
                 <h1>Note Title</h1>
             
                 <div className='row border border-primary p-3'>
-                    <button className={`col-3 ${style}`} onClick={addOuterFile}>Add Outer File</button>
-                    <button className='col-3'>Add Class</button>
-                    <button className='col-3'>Add Function</button>
-                    <button className='col-3'>Add Connection</button>
+                    <button className={`btn btn-outline-primary col-4 ${style}`} onClick={addOuterFile}>Add Outer File</button>
+                    <span className='col-4'></span>
+                    <button className='col-4'>Add Text File</button>
                 </div>
                 
                 <div>
