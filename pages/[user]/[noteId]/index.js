@@ -13,9 +13,11 @@ const AddOuterFile = () => {
         saveButton: ''
     });
 
-    const handleSubmit = (event) => {
+    const handleSubmit = event => {
         event.preventDefault();
+        console.log(fileData.title);
         setFileData(() => ({ 
+            title: fileData.title,
             titleStyle: styles.titleStyle,
             saveButton: styles.saveButton  
         }));
