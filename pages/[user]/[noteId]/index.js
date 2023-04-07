@@ -4,7 +4,6 @@ import { useState } from 'react';
 import Draggable from "react-draggable";
 import { useRef } from 'react';
 
-
 //Creates the new Outer File
 const AddOuterFile = () => {
     const [fileData, setFileData] = useState({
@@ -15,7 +14,6 @@ const AddOuterFile = () => {
 
     const handleSubmit = event => {
         event.preventDefault();
-        console.log(fileData.title);
         setFileData(() => ({ 
             title: fileData.title,
             titleStyle: styles.titleStyle,
@@ -53,29 +51,42 @@ const AddOuterFile = () => {
     );
 }
 
+
+
+
+
+//Create ability to copy outer file like for versioning
+
+
+
+
+
 //Manages all Outer Files and positions
 const OuterContainer = () => {
     const [style, setStyle] = useState(styles.noBox);
     const [allOuterContainers, setAllOuterContainers] = useState([]);
-    const [atLeastOneOuterFileExists, setAtLeastOneOuterFileExists] = useState(false);
+    const [fileID, setFileID] = useState(0);
     const draggableNodeRef = useRef({});
 
     const handleRemoval = fileId => {
-        const newFiles = allOuterContainers.filter(obj => obj.id !== fileId);
+        const newFiles = allOuterContainers.filter((obj) => {
+            if (obj.id !== fileId) {
+                return obj;
+            }
+            });
         setAllOuterContainers(oldFiles => [...newFiles]);
     }
     
     const addOuterFile = (event) => {
         event.preventDefault();
 
-        const objectLength = Object.keys(allOuterContainers).length;
         const newObj = {
-            id: objectLength,
+            id: fileID + 1,
             file: <AddOuterFile />
         };
+        setFileID(prevID => prevID + 1);
         setAllOuterContainers(oldArray => [...oldArray, newObj]);
         setStyle(styles.box);
-        setAtLeastOneOuterFileExists(true);
     }
 
     return (
@@ -96,7 +107,7 @@ const OuterContainer = () => {
                 </div>
                 
                 <div className='px-5'>
-                    {atLeastOneOuterFileExists && 
+                    {fileID > 0 && 
                     allOuterContainers.map(files => 
                         <div key={files.id}>
                             <Draggable nodeRef={draggableNodeRef}>
@@ -106,6 +117,7 @@ const OuterContainer = () => {
                                 </div>
                             </Draggable>
                        </div>)}
+                       {console.log(allOuterContainers)}
                 </div>
     
             </main>
