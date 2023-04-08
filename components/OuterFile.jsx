@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useRef } from "react";
 
 //Creates the new Outer File
-const OuterFile = props => {
+const OuterFile = ({id}) => {
     const [fileData, setFileData] = useState({
         title: '',
         titleStyle: '',
@@ -52,7 +52,6 @@ const OuterFile = props => {
             <div className='border border-primary rounded-4 p-5'></div>
             </div>
 
-        
         </Draggable>
     );
 }

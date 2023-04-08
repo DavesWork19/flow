@@ -20,22 +20,14 @@ const OuterContainer = () => {
     const addOuterFile = (event) => {
         event.preventDefault();
 
+        const newFileID = fileID + 1;
         const newObj = {
-            id: fileID + 1,
-            file: <OuterFile />
+            id: newFileID,
+            file: <OuterFile id={newFileID} />
         };
         setFileID(prevID => prevID + 1);
         setAllOuterContainers(oldArray => [...oldArray, newObj]);
         setStyle(styles.box);
-    }
-
-    const handleRemoval = fileId => {
-        const newFiles = allOuterContainers.filter((obj) => {
-            if (obj.id !== fileId) {
-                return obj;
-            }
-            });
-        setAllOuterContainers(oldFiles => [...newFiles]);
     }
 
     return (
@@ -60,10 +52,8 @@ const OuterContainer = () => {
                     allOuterContainers.map(files =>
                         <div key={files.id}>
                             {files.file}
-                            <button className={`btn btn-outline-primary float-end p-0 m-0 ${styles.removeOuterFile}`} onClick={() => handleRemoval(files.id)}>Delete</button>
                         </div>
                         )}
-                       {console.log(allOuterContainers)}
                 </div>
 
     
