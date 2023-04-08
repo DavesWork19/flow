@@ -2,9 +2,6 @@ import Head from 'next/head'
 import styles from '@/styles/Note.module.css'
 import { useState } from 'react';
 import OuterFile from '@/components/OuterFile';
-import TestFile from '@/components/TestFile';
-
-
 
 
 
