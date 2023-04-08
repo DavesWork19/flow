@@ -1,55 +1,8 @@
 import Head from 'next/head'
 import styles from '@/styles/Note.module.css'
 import { useState } from 'react';
-import Draggable from "react-draggable";
-import { useRef } from 'react';
-
-//Creates the new Outer File
-const AddOuterFile = () => {
-    const [fileData, setFileData] = useState({
-        title: '',
-        titleStyle: '',
-        saveButton: ''
-    });
-
-    const handleSubmit = event => {
-        event.preventDefault();
-        setFileData(() => ({ 
-            title: fileData.title,
-            titleStyle: styles.titleStyle,
-            saveButton: styles.saveButton  
-        }));
-    }
-
-    const handleTitleChange = event => {
-        event.preventDefault();
-        setFileData(() => ({
-            title: event.target.value
-        }));
-    }
-
-
-    return (
-        <div className='mt-3'> 
-
-        <form onSubmit={handleSubmit}>
-            <label>
-                <input 
-                className={fileData.titleStyle}
-                type="text" 
-                value={fileData.title}
-                onChange={handleTitleChange}
-                placeholder='Title'
-                spellCheck='false'
-                />
-            </label>
-            <button type='submit' className={fileData.saveButton}>Save</button>
-        </form>
-
-        <div className='border border-primary rounded-4 p-5'></div>
-        </div>
-    );
-}
+import OuterFile from '@/components/OuterFile';
+import TestFile from '@/components/TestFile';
 
 
 
@@ -66,7 +19,18 @@ const OuterContainer = () => {
     const [style, setStyle] = useState(styles.noBox);
     const [allOuterContainers, setAllOuterContainers] = useState([]);
     const [fileID, setFileID] = useState(0);
-    const draggableNodeRef = useRef({});
+    
+    const addOuterFile = (event) => {
+        event.preventDefault();
+
+        const newObj = {
+            id: fileID + 1,
+            file: <OuterFile />
+        };
+        setFileID(prevID => prevID + 1);
+        setAllOuterContainers(oldArray => [...oldArray, newObj]);
+        setStyle(styles.box);
+    }
 
     const handleRemoval = fileId => {
         const newFiles = allOuterContainers.filter((obj) => {
@@ -75,18 +39,6 @@ const OuterContainer = () => {
             }
             });
         setAllOuterContainers(oldFiles => [...newFiles]);
-    }
-    
-    const addOuterFile = (event) => {
-        event.preventDefault();
-
-        const newObj = {
-            id: fileID + 1,
-            file: <AddOuterFile />
-        };
-        setFileID(prevID => prevID + 1);
-        setAllOuterContainers(oldArray => [...oldArray, newObj]);
-        setStyle(styles.box);
     }
 
     return (
@@ -108,17 +60,16 @@ const OuterContainer = () => {
                 
                 <div className='px-5'>
                     {fileID > 0 && 
-                    allOuterContainers.map(files => 
+                    allOuterContainers.map(files =>
                         <div key={files.id}>
-                            <Draggable nodeRef={draggableNodeRef}>
-                                <div ref={draggableNodeRef}> 
-                                    {files.file}
-                                    <button className={`btn btn-outline-primary float-end p-0 m-0 ${styles.removeOuterFile}`} onClick={() => handleRemoval(files.id)}>Delete</button>
-                                </div>
-                            </Draggable>
-                       </div>)}
+                            {files.file}
+                            <button className={`btn btn-outline-primary float-end p-0 m-0 ${styles.removeOuterFile}`} onClick={() => handleRemoval(files.id)}>Delete</button>
+                        </div>
+                        )}
                        {console.log(allOuterContainers)}
                 </div>
+
+                <TestFile />
     
             </main>
         </>
