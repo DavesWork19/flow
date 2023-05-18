@@ -51,14 +51,6 @@ const AddOuterFile = () => {
 
 
 
-
-
-//Create ability to copy outer file like for versioning
-
-
-
-
-
 //Manages all Outer Files and positions
 const OuterContainer = () => {
     const [style, setStyle] = useState(styles.noBox);
