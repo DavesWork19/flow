@@ -2,7 +2,7 @@ import Head from 'next/head'
 import styles from '@/styles/Note.module.css'
 import { useState } from 'react';
 
-//Creates the new Outer File
+//Creates the new File
 const AddOuterFile = () => {
     const [fileData, setFileData] = useState({
         title: '',
@@ -51,9 +51,10 @@ const AddOuterFile = () => {
 
 
 
-//Manages all Outer Files and positions
+//Manages all Files and positions
 const OuterContainer = () => {
-    const [style, setStyle] = useState(styles.noBox);
+    const [fileButton, setFileButton] = useState(styles.noBox);
+    const [layorButton, setLayorButton] = useState(styles.noBox);
     const [allOuterContainers, setAllOuterContainers] = useState([]);
     const [fileID, setFileID] = useState(0);
 
@@ -66,7 +67,11 @@ const OuterContainer = () => {
         setAllOuterContainers(oldFiles => [...newFiles]);
     }
     
-    const addOuterFile = (event) => {
+    const resetFileButtonStyle = () => {
+        setFileButton(styles.noBox);
+    }
+    
+    const addFile = (event) => {
         event.preventDefault();
 
         const newObj = {
@@ -75,7 +80,8 @@ const OuterContainer = () => {
         };
         setFileID(prevID => prevID + 1);
         setAllOuterContainers(oldArray => [...oldArray, newObj]);
-        setStyle(styles.box);
+        setFileButton(styles.box);
+        setTimeout(resetFileButtonStyle, 1000);
     }
 
     return (
@@ -90,9 +96,9 @@ const OuterContainer = () => {
                 <h1>Note Title</h1>
             
                 <div className='row border border-primary p-3'>
-                    <button className={`btn btn-outline-primary col-4 ${style}`} onClick={addOuterFile}>Add Outer File</button>
+                    <button className={`btn btn-outline-primary col-4`} onClick={addFile}>Add Outer File</button>
                     <span className='col-4'></span>
-                    <button className={`btn btn-outline-primary col-4 ${style}`}>Add Text File</button>
+                    <button className={`btn btn-outline-primary col-4`}>Add New Layor</button>
                 </div>
                 
                 <div className='px-5'>
